@@ -16,9 +16,9 @@ modules:
     no-autogen: true
     subdir: src
     sources:
-      - type: git
-        url: https://github.com/redeclipse/tesseract.git
-        commit: db03fcbf57daf806ebcc4dfae1781b5ad3c61a63
+      - type: archive
+        url: https://mappinghell.net/tesseract/tesseract-r2553.zip
+        sha256: 3bf6279e66eeb4f504f036572e0f60bf371a7bb31be82cf00f45241712dcaba2
       - type: file
         path: tesseract.sh
       - type: file
