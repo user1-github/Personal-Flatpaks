@@ -16,7 +16,8 @@ modules:
     no-autogen: true
     build-options:
       env:
-        C_INCLUDE_PATH: /app/include/SDL2
+        CPLUS_INCLUDE_PATH: /app/include/SDL2
+        LIBRARY_PATH: /app/lib
     subdir: src
     sources:
       - type: archive
