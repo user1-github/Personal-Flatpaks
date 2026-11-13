@@ -1,0 +1,34 @@
+id: gg.tesseract.Tesseract
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+command: tesseract
+finish-args:
+  - --device=dri
+  - --share=network
+  - --socket=wayland
+  - --filesystem=xdg-run/pipewire-0:ro
+modules:
+  - shared-modules/SDL2/SDL2_image.json
+  - shared-modules/SDL2/SDL2_mixer.json
+
+  - name: tesseract
+    no-autogen: true
+    subdir: src
+    sources:
+      - type: git
+        url: https://github.com/redeclipse/tesseract.git
+        commit: db03fcbf57daf806ebcc4dfae1781b5ad3c61a63
+      - type: file
+        path: tesseract.sh
+      - type: file
+        path: gg.tesseract.Tesseract.desktop
+      - type: patch
+        path: gcc16.patch
+    post-install:
+      - mkdir -p /app/share/tesseract
+      - cp -a ../config ../media /app/share/tesseract
+      - install -Dm755 ../bin_unix/native_client /app/bin/client
+      - install -Dm755 ../tesseract.sh /app/bin/tesseract
+      - install -Dm644 ../media/interface/cube.png /app/share/icons/hicolor/256x256/apps/gg.tesseract.Tesseract.png
+      - install -Dm644 ../gg.tesseract.Tesseract.desktop -t /app/share/applications
