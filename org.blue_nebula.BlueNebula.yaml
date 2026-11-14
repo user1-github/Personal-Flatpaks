@@ -1,0 +1,31 @@
+id: org.blue_nebula.BlueNebula
+runtime: org.freedesktop.Platform
+runtime-version: '26.08'
+sdk: org.freedesktop.Sdk
+command: client
+finish-args:
+  - --device=dri
+  - --share=network
+  - --socket=wayland
+  - --filesystem=xdg-run/pipewire-0:ro
+modules:
+  - shared-modules/SDL2/SDL2_image.json
+  - shared-modules/SDL2/SDL2_mixer.json
+
+  - name: blue-nebula
+    buildsystem: cmake-ninja
+    no-make-install: true
+    make-args:
+      - -v
+    subdir: src
+    sources:
+      - type: git
+        url: https://github.com/user1-github/base-1.git
+        commit:
+    post-install:
+      - mkdir -p /app/share/blue-nebula
+      - cp -a ../config ../data /app/share/blue-nebula
+      - install -Dm755 client -t /app/bin
+      - install -Dm644 ../src/install/nix/blue-nebula_512.png /app/share/icons/hicolor/512x512/apps/org.blue_nebula.BlueNebula.png
+      - install -Dm644 ../src/install/nix/blue-nebula.desktop.am /app/share/applications/org.blue_nebula.BlueNebula.desktop
+      - desktop-file-edit --set-icon=org.blue_nebula.BlueNebula --set-key=Exec --set-value=client /app/share/applications/org.blue_nebula.BlueNebula.desktop
