@@ -15,13 +15,15 @@ modules:
   - name: blue-nebula
     buildsystem: cmake-ninja
     no-make-install: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
     make-args:
       - -v
     subdir: src
     sources:
       - type: git
         url: https://github.com/user1-github/base-1.git
-        commit:
+        commit: 114650a5611fa387a1caeff55fda5b6b6c01570a
     post-install:
       - mkdir -p /app/share/blue-nebula
       - cp -a ../config ../data /app/share/blue-nebula
